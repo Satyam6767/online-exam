@@ -75,3 +75,10 @@
     background: #388e3c;
   }
   
+
+  .exam-timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 20px;
+  }

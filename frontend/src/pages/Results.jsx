@@ -19,18 +19,43 @@ const Results = () => {
     fetchResults();
   }, [user]);
 
+  const calculateScores = (responses) => {
+    let correct = 0;
+    let incorrect = 0;
+
+    responses.forEach((response) => {
+      if (
+        response.question &&
+        response.question.correctAnswer &&
+        response.selectedAnswer === response.question.correctAnswer
+      ) {
+        correct++;
+      } else {
+        incorrect++;
+      }
+    });
+
+    return { correct, incorrect };
+  };
+
   return (
     <div className="results-container">
       <div className="results-wrapper">
         <h2 className="results-title">Your Exam Results</h2>
         <ul className="results-list">
           {results.length > 0 ? (
-            results.map((attempt) => (
-              <li key={attempt._id} className="results-item">
-                <strong>Exam:</strong> {attempt.exam.title} <br />
-                <strong>Score:</strong> {attempt.score}
-              </li>
-            ))
+            results.map((attempt) => {
+              const { correct, incorrect } = calculateScores(attempt.responses);
+
+              return (
+                <li key={attempt._id} className="results-item">
+                  <strong>Exam:</strong> {attempt.exam.title} <br />
+                  <strong>Score:</strong> {attempt.score} <br />
+                  <strong>Correct Answers:</strong> {correct} <br />
+                  <strong>Incorrect Answers:</strong> {incorrect}
+                </li>
+              );
+            })
           ) : (
             <p>No exam results available.</p>
           )}

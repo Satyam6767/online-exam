@@ -53,3 +53,14 @@
     background: #357abd;
   }
   
+
+
+  .exam-info {
+  margin-bottom: 8px;
+}
+
+.exam-datetime {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 4px;
+}

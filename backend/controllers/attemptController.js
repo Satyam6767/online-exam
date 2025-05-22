@@ -34,12 +34,19 @@ const attemptExam = async (req, res) => {
 // Get Student's Attempted Exams
 const getStudentAttempts = async (req, res) => {
   try {
-    const attempts = await Attempt.find({ student: req.user.id }).populate("exam", "title subject");
+    const attempts = await Attempt.find({ student: req.user.id })
+      .populate("exam", "title subject")
+      .populate({
+        path: "responses.question",
+        select: "correctAnswer"
+      });
+
     res.json(attempts);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
 
 // Get Exam Results (For Teacher/Admin)
 const getExamResults = async (req, res) => {

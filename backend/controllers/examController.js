@@ -5,7 +5,7 @@ const Question = require("../models/Question");
 
 const createExam = async (req, res) => {
   try {
-    const { title, subject, duration } = req.body;
+    const { title, subject, duration,  examDateTime  } = req.body;
 
     if (!title || !subject || !duration) {
       return res.status(400).json({ message: "All fields are required" });
@@ -15,6 +15,7 @@ const createExam = async (req, res) => {
       title,
       subject,
       duration,
+      examDateTime,
       teacher: req.user.id
     });
 
